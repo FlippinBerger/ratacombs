@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs28o802dau5o"]
+
+[ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_kub85"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="2_taoly"]
+
+[node name="World" type="Node2D"]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+script = ExtResource("1_kub85")
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("2_taoly")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+
+[node name="Environment" type="Node2D" parent="."]
