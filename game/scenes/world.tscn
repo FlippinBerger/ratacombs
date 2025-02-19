@@ -1,16 +1,71 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs28o802dau5o"]
+[gd_scene load_steps=11 format=3 uid="uid://cs28o802dau5o"]
 
 [ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_kub85"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="2_taoly"]
+[ext_resource type="Script" path="res://scripts/state/state_machine.gd" id="3_b4for"]
+[ext_resource type="Script" path="res://scripts/state/player/idle.gd" id="4_6nuxu"]
+[ext_resource type="Script" path="res://scripts/state/player/jump.gd" id="5_3hfbn"]
+[ext_resource type="Script" path="res://scripts/state/player/run.gd" id="6_m2pfy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6vkq"]
+radius = 40.0
+height = 180.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q72ro"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_8fq46"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3hf3e"]
+size = Vector2(1.00219, 1.12195)
 
 [node name="World" type="Node2D"]
 
 [node name="MainCamera" type="Camera2D" parent="."]
+offset = Vector2(960, 535)
 script = ExtResource("1_kub85")
+metadata/_edit_lock_ = true
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(899, 548)
 script = ExtResource("2_taoly")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(36, 90)
+shape = SubResource("CapsuleShape2D_b6vkq")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Player"]
+position = Vector2(37.25, 89.1605)
+scale = Vector2(75.5, 90.1605)
+mesh = SubResource("CapsuleMesh_q72ro")
+
+[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_b4for")
+initial_state = NodePath("PlayerIdle")
+
+[node name="PlayerIdle" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("4_6nuxu")
+player = NodePath("../..")
+
+[node name="PlayerJump" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_3hfbn")
+player = NodePath("../..")
+
+[node name="PlayerRun" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_m2pfy")
+player = NodePath("../..")
+
 [node name="Environment" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Ground" type="MeshInstance2D" parent="Environment"]
+position = Vector2(966, 1000)
+scale = Vector2(1828, 102.5)
+mesh = SubResource("QuadMesh_8fq46")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground/StaticBody2D"]
+position = Vector2(-0.000547111, 0.0341463)
+shape = SubResource("RectangleShape2D_3hf3e")
