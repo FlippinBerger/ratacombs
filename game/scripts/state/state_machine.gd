@@ -40,3 +40,4 @@ func on_state_transition(state, new_state_name):
     new_state.enter()
 
     current_state = new_state
+    print("new state is ", new_state_name)

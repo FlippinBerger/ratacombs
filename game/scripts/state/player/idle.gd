@@ -16,6 +16,7 @@ func _input(event: InputEvent) -> void:
 
         transitioned.emit(self, "playerrun")
         return
+    
 
 # func enter() -> void:
 #     # play idle animation
@@ -32,5 +33,9 @@ func _input(event: InputEvent) -> void:
 #     pass
 
 # can't override this if we want what's playing in the parent but can call super
-# func physics_update(delta: float) -> void:
-#     super(delta)
+func physics_update(delta: float) -> void:
+    super(delta)
+
+    if Input.is_action_pressed("crouch"):
+        transitioned.emit(self, "playercrouch")
+        return

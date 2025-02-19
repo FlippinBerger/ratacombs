@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cs28o802dau5o"]
+[gd_scene load_steps=12 format=3 uid="uid://cs28o802dau5o"]
 
 [ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_kub85"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="2_taoly"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/state/player/idle.gd" id="4_6nuxu"]
 [ext_resource type="Script" path="res://scripts/state/player/jump.gd" id="5_3hfbn"]
 [ext_resource type="Script" path="res://scripts/state/player/run.gd" id="6_m2pfy"]
+[ext_resource type="Script" path="res://scripts/state/player/crouch.gd" id="7_l4bce"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6vkq"]
 radius = 40.0
@@ -55,6 +56,14 @@ player = NodePath("../..")
 [node name="PlayerRun" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("6_m2pfy")
 player = NodePath("../..")
+
+[node name="PlayerCrouch" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("7_l4bce")
+player = NodePath("../..")
+
+[node name="PlayerAttack" type="Node" parent="Player/StateMachine"]
+
+[node name="PlayerJumpAttack" type="Node" parent="Player/StateMachine"]
 
 [node name="Environment" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
