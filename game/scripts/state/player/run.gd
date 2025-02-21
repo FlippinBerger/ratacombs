@@ -1,7 +1,6 @@
 class_name PlayerRunState
 extends PlayerState
 
-
 func enter() -> void:
     pass
 
@@ -14,6 +13,8 @@ func update(delta: float) -> void:
     pass
 
 func _input(event: InputEvent) -> void:
+    super(event)
+
     if event.is_action_pressed("jump"):
         player.velocity.y = JUMP_VELOCITY
         transitioned.emit(self, "playerjump")

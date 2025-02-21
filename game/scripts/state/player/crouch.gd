@@ -4,10 +4,17 @@ extends PlayerState
 # func enter() -> void:
 #     pass
 
+@export var animation_player: AnimationPlayer
+
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("jump"):
         player.velocity.y = JUMP_VELOCITY
         transitioned.emit(self, "playerjump")
+
+
+func enter() -> void:
+    animation_player.play("crouch")
+
 
 # func exit() -> void:
 #     pass
