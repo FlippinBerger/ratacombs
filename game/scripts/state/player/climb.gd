@@ -13,6 +13,7 @@ func enter() -> void:
 
 func exit() -> void:
     player.is_climbing = false
+    player.velocity = Vector2.ZERO
 
 
 func _input(event: InputEvent) -> void:
