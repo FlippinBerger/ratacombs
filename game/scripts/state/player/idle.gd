@@ -41,6 +41,6 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
     super(delta)
 
-    if Input.is_action_pressed("crouch"):
+    if Input.is_action_pressed("down") and player.is_on_floor():
         transitioned.emit(self, "playercrouch")
         return

@@ -9,6 +9,8 @@ func enter() -> void:
 
 
 func _input(event: InputEvent) -> void:
+    super(event)
+
     if event.is_action_pressed("jump") and !has_doubled:
         has_doubled = true
         player.velocity.y = JUMP_VELOCITY
@@ -34,7 +36,7 @@ func physics_update(delta: float) -> void:
         if player_moving:
             transitioned.emit(self, "playerrun")
             return
-        if Input.is_action_pressed("crouch"):
+        if Input.is_action_pressed("down"):
             transitioned.emit(self, "playercrouch")
             return
 

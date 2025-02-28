@@ -20,7 +20,7 @@ func _input(event: InputEvent) -> void:
         transitioned.emit(self, "playerjump")
         return
 
-    if event.is_action_pressed("crouch"):
+    if event.is_action_pressed("down"):
         transitioned.emit(self, "playercrouch")
         return
 

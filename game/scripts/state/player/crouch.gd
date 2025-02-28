@@ -7,6 +7,8 @@ extends PlayerState
 @export var animation_player: AnimationPlayer
 
 func _input(event: InputEvent) -> void:
+    super(event)
+
     if event.is_action_pressed("jump"):
         player.velocity.y = JUMP_VELOCITY
         transitioned.emit(self, "playerjump")
@@ -40,7 +42,7 @@ func physics_update(delta: float) -> void:
         player.velocity.x = 0
 
     # crouch exit states
-    if !Input.is_action_pressed("crouch"):
+    if !Input.is_action_pressed("down"):
         if player_moving:
             transitioned.emit(self, "playerrun")
             return

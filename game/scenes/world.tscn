@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cs28o802dau5o"]
+[gd_scene load_steps=22 format=3 uid="uid://cs28o802dau5o"]
 
 [ext_resource type="Script" path="res://scripts/camera/camera.gd" id="1_kub85"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="2_taoly"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/state/player/crouch.gd" id="7_l4bce"]
 [ext_resource type="Script" path="res://scripts/state/player/attack.gd" id="8_u31xx"]
 [ext_resource type="Script" path="res://scripts/state/player/jump_attack.gd" id="9_rhxyi"]
+[ext_resource type="Script" path="res://scripts/state/player/climb.gd" id="10_kvsce"]
+[ext_resource type="Script" path="res://scripts/interacts/climber.gd" id="10_rhhhb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6vkq"]
 radius = 20.0
@@ -73,7 +75,12 @@ _data = {
 [sub_resource type="QuadMesh" id="QuadMesh_8fq46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3hf3e"]
-size = Vector2(1.00219, 1.12195)
+size = Vector2(1.00219, 1.6715)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5644t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5d810"]
+size = Vector2(0.987014, 1)
 
 [node name="World" type="Node2D"]
 
@@ -83,17 +90,18 @@ script = ExtResource("1_kub85")
 metadata/_edit_lock_ = true
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(890, 418)
+z_index = 1
+position = Vector2(969, 614)
 script = ExtResource("2_taoly")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(61, 163)
 shape = SubResource("CapsuleShape2D_b6vkq")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Player"]
-position = Vector2(59, 163)
+modulate = Color(0.396078, 1, 1, 1)
 scale = Vector2(29.25, 29.9197)
 mesh = SubResource("CapsuleMesh_q72ro")
 
@@ -127,6 +135,10 @@ player = NodePath("../..")
 script = ExtResource("9_rhxyi")
 player = NodePath("../..")
 
+[node name="PlayerClimb" type="Node" parent="Player/StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("10_kvsce")
+player = NodePath("../..")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 libraries = {
 "": SubResource("AnimationLibrary_mj53n")
@@ -144,5 +156,17 @@ metadata/_edit_group_ = true
 [node name="StaticBody2D" type="StaticBody2D" parent="Environment/Ground"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground/StaticBody2D"]
-position = Vector2(-0.000547111, 0.0341463)
+position = Vector2(-0.000547051, 0.308921)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_3hf3e")
+
+[node name="Ladder" type="MeshInstance2D" parent="Environment"]
+position = Vector2(1157.75, 563.5)
+scale = Vector2(38.5, 193)
+mesh = SubResource("BoxMesh_5644t")
+script = ExtResource("10_rhhhb")
+
+[node name="Area2D" type="Area2D" parent="Environment/Ladder"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ladder/Area2D"]
+shape = SubResource("RectangleShape2D_5d810")

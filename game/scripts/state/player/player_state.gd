@@ -20,12 +20,14 @@ func update(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("move_left") and player.facing_right:
-        print("going left")
         player.facing_right = false
 
     elif event.is_action_pressed("move_right") and !player.facing_right:
-        print("going right")
         player.facing_right = true
+
+    if (event.is_action_pressed("up") or event.is_action_pressed("down")) and player.is_near_ladder:
+        transitioned.emit(self, "playerclimb")
+        return
 
 
 func physics_update(delta: float) -> void:
