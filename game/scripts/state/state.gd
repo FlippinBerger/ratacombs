@@ -11,6 +11,10 @@ func exit() -> void:
     pass
 
 
+func input(event: InputEvent) -> void:
+    pass
+
+
 func update(delta: float) -> void:
     pass
 

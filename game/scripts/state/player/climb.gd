@@ -16,12 +16,12 @@ func exit() -> void:
     player.velocity = Vector2.ZERO
 
 
-func _input(event: InputEvent) -> void:
+func input(event: InputEvent) -> void:
     if event.is_action_pressed("move_right") or event.is_action_pressed("move_left"):
         transitioned.emit(self, "playeridle")
 
 
-func _process(delta: float) -> void:
+func update(delta: float) -> void:
     if !player.is_climbing:
         transitioned.emit(self, "playeridle")
 

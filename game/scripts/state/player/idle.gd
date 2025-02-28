@@ -3,7 +3,7 @@ extends PlayerState
 
 @export var animation_player: AnimationPlayer
 
-func _input(event: InputEvent) -> void:
+func input(event: InputEvent) -> void:
     super(event)
 
     if event.is_action_pressed("jump") and player.is_on_floor():

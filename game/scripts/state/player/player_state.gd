@@ -18,7 +18,8 @@ func exit() -> void:
 func update(delta: float) -> void:
     pass
 
-func _input(event: InputEvent) -> void:
+
+func input(event: InputEvent) -> void:
     if event.is_action_pressed("move_left") and player.facing_right:
         player.facing_right = false
 

@@ -8,7 +8,7 @@ func enter() -> void:
     pass
 
 
-func _input(event: InputEvent) -> void:
+func input(event: InputEvent) -> void:
     super(event)
 
     if event.is_action_pressed("jump") and !has_doubled:

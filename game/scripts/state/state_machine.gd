@@ -17,6 +17,11 @@ func _ready() -> void:
         current_state = initial_state
 
 
+func _input(event: InputEvent) -> void:
+    if current_state:
+        current_state.input(event)
+
+
 func _process(delta: float) -> void:
     if current_state:
         current_state.update(delta)
